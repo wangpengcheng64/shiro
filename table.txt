@@ -1,0 +1,92 @@
+﻿-- --------------------------------------------------菜单管理------------------------------------------------------------
+DROP TABLE IF EXISTS `sys_menu`;
+CREATE TABLE `sys_menu` (
+  `id` INT(11) NOT NULL COMMENT 'id',
+  `parent_id` BIGINT(20) DEFAULT NULL COMMENT '上一级id',
+  `menu_name` VARCHAR(255) NOT NULL COMMENT '名称',
+  `permission` VARCHAR(255) NOT NULL COMMENT '权限字符串',
+  `resource_type`  VARCHAR(255) DEFAULT NULL COMMENT '图标类型',
+  `is_show` INT(11) NOT NULL COMMENT '是否显示（0：显示 1：隐藏）',
+  `url` VARCHAR(255) NOT NULL COMMENT '地址',
+  `sort` INT(11) DEFAULT NULL COMMENT '排序',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）',
+  `description` VARCHAR(255) DEFAULT NULL COMMENT '描述',
+  `create_by` INT(11) NOT NULL COMMENT '创建者',
+  `update_by` INT(11) DEFAULT NULL COMMENT '更新者',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='菜单管理';
+-- ----------------------------------------------------角色菜单关联----------------------------------------------------------
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
+  `menu_id` INT(11) NOT NULL COMMENT 'menu_id',
+  `role_id` INT(11) NOT NULL COMMENT 'role_id',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）'
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='角色菜单关联';
+
+-- ----------------------------------------------------角色管理----------------------------------------------------------
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
+  `id` INT(11) NOT NULL COMMENT 'id',
+  `role_name` VARCHAR(255) NOT NULL COMMENT '角色名称',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）',
+  `description` VARCHAR(255) DEFAULT NULL COMMENT '描述',
+  `create_by` INT(11) NOT NULL COMMENT '创建者',
+  `update_by` INT(11) DEFAULT NULL COMMENT '更新者',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='角色管理';
+-- ------------------------------------------------------用户角色关联--------------------------------------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role` (
+  `user_id` INT(11) NOT NULL COMMENT 'id',
+  `role_id` INT(11) NOT NULL COMMENT 'role_id',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）'
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='用户角色关联';
+-- -------------------------------------------------------用户管理-------------------------------------------------------
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `id` INT(11) NOT NULL COMMENT 'id',
+  `username` VARCHAR(255) NOT NULL COMMENT '用户名',
+  `nickname` VARCHAR(255) DEFAULT NULL COMMENT '昵称',
+  `password` VARCHAR(255) NOT NULL COMMENT '密码',
+  `phone` VARCHAR(255) DEFAULT NULL COMMENT '电话',
+  `email` VARCHAR(255) DEFAULT NULL COMMENT '邮箱',
+  `avatar` VARCHAR(1024) DEFAULT NULL COMMENT '头像',
+  `age` INT(11) DEFAULT NULL COMMENT '年龄',
+  `sex` INT(11) DEFAULT NULL COMMENT '性别（0：男 1：女）',
+  `salt` VARCHAR(255) DEFAULT NULL COMMENT '盐',
+  `remark` VARCHAR(255) DEFAULT NULL COMMENT '备注',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）',
+  `create_by` INT(11) NOT NULL COMMENT '创建者',
+  `update_by` INT(11) DEFAULT NULL COMMENT '更新者',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='用户管理';
+-- ------------------------------------------------------用户部门关联--------------------------------------------------------
+DROP TABLE IF EXISTS `sys_user_group`;
+CREATE TABLE `sys_user_group` (
+  `user_id` INT(11) NOT NULL COMMENT 'id',
+  `group_id` INT(11) NOT NULL COMMENT 'role_id',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）'
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='用户部门关联';
+-- ------------------------------------------------------组织管理--------------------------------------------------------
+DROP TABLE IF EXISTS `sys_group`;
+CREATE TABLE `sys_group` (
+  `id` INT(11) NOT NULL COMMENT 'id',
+  `parent_id` BIGINT(20) DEFAULT NULL COMMENT '上一级id',
+  `group_no` VARCHAR(255) DEFAULT NULL COMMENT '组织编号',
+  `group_name` VARCHAR(255) NOT NULL COMMENT '组织名称',
+  `phone` VARCHAR(255) DEFAULT NULL COMMENT '电话',
+  `email` VARCHAR(255) DEFAULT NULL COMMENT '邮箱',
+  `remark` VARCHAR(255) DEFAULT NULL COMMENT '备注',
+  `state` INT(11) NOT NULL COMMENT '状态（0：正常 1：删除）',
+  `create_by` INT(11) NOT NULL COMMENT '创建者',
+  `update_by` INT(11) DEFAULT NULL COMMENT '更新者',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='菜单管理';

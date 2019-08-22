@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wpc.shiro.mapper.RoleMenuMapper">
+    <resultMap id="BaseResultMap" type="com.wpc.shiro.bean.RoleMenu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, menu_id, role_id, state
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role_menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.wpc.shiro.bean.RoleMenu">
+    insert into sys_role_menu (id, menu_id, role_id, 
+      state)
+    values (#{id,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.wpc.shiro.bean.RoleMenu">
+        insert into sys_role_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="menuId != null">
+                menu_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuId != null">
+                #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wpc.shiro.bean.RoleMenu">
+        update sys_role_menu
+        <set>
+            <if test="menuId != null">
+                menu_id = #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wpc.shiro.bean.RoleMenu">
+    update sys_role_menu
+    set menu_id = #{menuId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <insert id="save">
+        insert into sys_role_menu
+        (
+        `role_id`,
+        `menu_id`
+        )
+        values
+        <foreach collection="menuIdList" item="item" index="index" separator=",">
+            (
+            #{roleId},
+            #{item}
+            )
+        </foreach>
+    </insert>
+    <delete id="delete">
+    delete from sys_role_menu where role_id = #{roleId}
+  </delete>
+    <update id="update">
+    update sys_role_menu
+    set state = 1
+		where role_id = #{value}
+	</update>
+
+    <select id="queryMenuIdList" resultType="Integer">
+		select menu_id from sys_role_menu where role_id = #{value}
+	</select>
+</mapper>
