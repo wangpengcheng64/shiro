@@ -24,7 +24,7 @@
         <mybatis.version>2.0.0</mybatis.version>
         <druid.version>1.1.10</druid.version>
         <jwt.version>3.4.0</jwt.version>
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.0</shiro.version>
         <servlet.version>2.5</servlet.version>
         <swagger2.version>2.7.0</swagger2.version>
         <lombok.version>1.16.8</lombok.version>
